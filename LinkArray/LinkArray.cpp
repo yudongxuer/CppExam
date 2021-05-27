@@ -66,10 +66,23 @@ bool LinkArray::Delete(int index) {
         return false;
     }
     Node *tmpPointer = this->linkArray;
+    if (index == 0) {
+        this->linkArray = this->linkArray->next;
+        this->linkArray->pre = nullptr;
+        delete tmpPointer;
+        return true;
+    }
+    if (index == this->size - 1) {
+        tmpPointer = this->tail;
+        this->tail = this->tail->pre;
+        this->tail->next = nullptr;
+        delete tmpPointer;
+        return true;
+    }
     for (int i = 0; i < this->size; i++) {
         if (i == index) {
-            tmpPointer->pre->next->next = tmpPointer->next;
-            tmpPointer->next->pre->pre = tmpPointer->pre;
+            tmpPointer->pre->next = tmpPointer->next;
+            tmpPointer->next->pre = tmpPointer->pre;
             delete tmpPointer;
             this->size--;
             return true;
