@@ -92,3 +92,35 @@ bool LinkArray::Delete(int index) {
     }
     return false;
 }
+
+void LinkArray::Sort(bool reverse) {
+    int *tmpArray = new int[this->size];
+    Node *headPointer = this -> GetFirstPointer();
+    int index = 0;
+    while (headPointer != nullptr) {
+        tmpArray[index] = headPointer->value;
+        headPointer = headPointer->next;
+        index++;
+    }
+    for (int i = 0; i < this->size; i++) {
+        for (int j = i; j < this->size; j++) {
+            if (!reverse && tmpArray[i] > tmpArray[j]) {
+                int tmp = tmpArray[i];
+                tmpArray[i] = tmpArray[j];
+                tmpArray[j] = tmp;
+            } else if (reverse && tmpArray[i] < tmpArray[j]) {
+                int tmp = tmpArray[i];
+                tmpArray[i] = tmpArray[j];
+                tmpArray[j] = tmp;
+            }
+        }
+    }
+    headPointer = this -> GetFirstPointer();
+    index = 0;
+    while (headPointer != nullptr) {
+        headPointer->value = tmpArray[index];
+        headPointer = headPointer->next;
+        index++;
+    }
+    delete[] tmpArray;
+}
