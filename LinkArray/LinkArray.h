@@ -14,6 +14,7 @@ public:
     int Index(int index);
     bool Set(int index, int value);
     bool Delete(int index);
+    void Sort(bool reverse);
     Node *GetFirstPointer();
     LinkArray();
 };
